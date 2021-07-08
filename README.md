@@ -10,12 +10,8 @@ This project uses Go.
 
 ### Prerequisites
 
-TODO: Pre-install the config file.
-At the moment:
-
 ```
-mkdir ~/.salmon
-touch config.yaml
+make init
 ```
 
 config.yaml
