@@ -33,22 +33,24 @@ func main() {
 						Body: draft,
 					}
 					fmt.Printf("Submission for %s at %s with body: \n%s\n", f.Name, f.Date.Format("2006-01-02"), f.Body)
-					fmt.Printf("Is this ok? ")
+					fmt.Printf("Is this ok? y/n/c (yes, no, cancel) ")
 					ok := io.ReadFrom(os.Stdin)
-					if ok == "y" {
+					switch ok {
+					case "y":
 						yes(ctx, f)
-					}
-					if ok == "n" {
+					case "n":
 						draft := no(ctx)
 						f.Body = draft
 						yes(ctx, f)
+					default:
+						fmt.Println("Submission aborted!")
+						os.Exit(0)
 					}
-					fmt.Println("Submitted!")
 					return nil
 				},
 			},
 		},
-		UsageText: "salmon submit",
+		UsageText: "bin/salmon prs",
 	}
 
 	app.Run(os.Args)
@@ -59,6 +61,7 @@ func yes(ctx context.Context, draft form.SpareForm) {
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println("Submitted!")
 }
 func no(ctx context.Context) string {
 	fmt.Printf("Provide an updated draft:\n")
