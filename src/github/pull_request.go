@@ -7,10 +7,11 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
-	"salmon/src/ctx_values"
 	"strconv"
 	"strings"
 	"time"
+
+	"salmon/src/ctx_values"
 
 	"github.com/google/go-github/github"
 )
@@ -113,10 +114,14 @@ func mapPullRequest(gpr *github.PullRequest) PullRequest {
 
 func getSigLabels(labels []*github.Label) []string {
 	var filtered []string
+	m := make(map[string]struct{})
 	for _, label := range labels {
 		name := label.GetName()
 		if name != "auto-merge" && name != "blocked" {
-			filtered = append(filtered, "Spare "+strings.Title(name))
+			if _, ok := m[name]; !ok {
+				m[name] = struct{}{}
+				filtered = append(filtered, "Spare "+strings.Title(name))
+			}
 		}
 	}
 	return filtered

@@ -23,8 +23,6 @@ func BuildSpareForm(ctx context.Context) string {
 		fmt.Printf("unable to list pull requests: %s\n", err.Error())
 		os.Exit(1)
 	}
-	fmt.Println(prs)
-
 	return createDescription(prs)
 }
 

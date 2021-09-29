@@ -27,7 +27,7 @@ func main() {
 					ctx := config.ParseConfig()
 
 					draft := submit.BuildSpareForm(ctx)
-					f := form.SpareForm{
+					f := form.StanForm{
 						Name: ctx_values.Get(ctx, "name"),
 						Date: time.Now(),
 						Body: draft,

@@ -10,7 +10,8 @@ type StanForm struct{}
 
 func (sf StanForm) SubmitForm() (bool, error) {
 	client := FormClient{
-		Client:  *http.DefaultClient,
+		Client: *http.DefaultClient,
+		// TODO: Also belongs in a config
 		BaseUrl: "https://docs.google.com/forms/u/0/d/e/1FAIpQLSf4hSYBd3o3MCEIA-jq1jl4RWqMULQQbwvVLqXR3wYWmHimow/formResponse",
 	}
 
@@ -18,7 +19,7 @@ func (sf StanForm) SubmitForm() (bool, error) {
 		StanFieldMapping[StanName]:    "Stan Test",
 		StanFieldMapping[StanEmail]:   "stan@stanmail.com",
 		StanFieldMapping[StanSubject]: "Flying animals",
-		StanFieldMapping[StanBody]:    "Btw - on the down low, there is a dead animal friend",
+		StanFieldMapping[StanBody]:    "Flying animal friend",
 	}
 	successful, err := client.Submit(m)
 	if err != nil {
